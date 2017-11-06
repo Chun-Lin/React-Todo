@@ -1,22 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
 import TodoListItem from './todo_list_item';
 
-const TodoList = props => {
-    const videoItems = props.todos.map((todo, index) => {
-        console.log(`todo: ${todo}, index: ${index}`);
+class TodoList extends Component {
+    constructor(props) {
+        super(props);
 
-        return (
-            <TodoListItem
-                editTodo={props.editTodo}
-                deleteTodo={props.deleteTodo}
-                key={index}
-                index={index}
-                todo={todo}
-            />
-        );
-    });
+        this.state = {};
+    }
 
-    return <ul>{videoItems}</ul>;
-};
+    render() {
+        const videoItems = this.props.todos.map((todo, index) => {
+            console.log(`todo: ${todo}, index: ${index}`);
+            return (
+                <TodoListItem
+                    editTodo={this.props.editTodo}
+                    deleteTodo={this.props.deleteTodo}
+                    key={index}
+                    index={index}
+                    todo={todo}
+                />
+            );
+        });
+        return <ul>{videoItems}</ul>
+    }
+}
 
 export default TodoList;
