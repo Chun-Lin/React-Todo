@@ -1,29 +1,46 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import AddTodo from './containers/add_todo';
+import TodoList from './containers/todo_list';
 
 class App extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            todos: [{ todo_title: '' }]
+            todos: []
         };
-
-        // survey bind
-        this.AddTodo = this.AddTodo.bind(this);
     }
 
-    AddTodo(todoTitle) {
-        this.setState({ todos: [{todo_title: todoTitle}] });
-    }
+    AddTodo = todoTitle => {
+        this.setState(prevStat => ({
+            todos: prevStat.todos.concat(todoTitle)
+        }));
+    };
+
+    handleDelete = (index, todos) => {
+        todos.splice(index, 1);
+        console.log('todos:', todos);
+        return todos;
+    };
 
     render() {
         return (
             <div className="App">
                 <AddTodo onAddTodoChange={this.AddTodo} />
-                <h2>{this.state.todos[0].todo_title}</h2>
+                <TodoList
+                    todos={this.state.todos}
+                    deleteTodo={selectedTodoKey => {
+                        this.setState({
+                            todos: this.handleDelete(
+                                selectedTodoKey,
+                                this.state.todos
+                            )
+                        });
+                    }}
+                    
+                    
+                />
             </div>
         );
     }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 
 class AddTodo extends Component {
     constructor(props) {
@@ -8,29 +7,28 @@ class AddTodo extends Component {
         this.state = {
             todoTitle: ''
         };
-
-        // this.onInputChange = this.onInputChange.bind(this);
     }
 
-    render() {
+    render = () => {
         return (
             <div className="add-todo">
                 <input
                     value={this.state.todoTitle}
-                    onChange={event => this.setState({todoTitle: event.target.value})}    
+                    onChange={event =>
+                        this.setState({ todoTitle: event.target.value })}
                 />
                 <button
-                    type="button"
-                    onClick={() => this.onInputChange(this.state.todoTitle)}>+</button>
-                <h1>{this.state.todoTitle}</h1>
+                    onClick={() => this.onInputChange(this.state.todoTitle)}
+                >
+                    +
+                </button>
             </div>
         );
-    }
+    };
 
-    onInputChange(todoTitle) {
-        // this.setState({ todoTitle });
+    onInputChange = todoTitle => {
         this.props.onAddTodoChange(todoTitle);
-    }
+    };
 }
 
 export default AddTodo;
