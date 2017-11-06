@@ -24,6 +24,11 @@ class App extends Component {
         return todos;
     };
 
+    handleEdit = (index, todos, todoTitle) => {
+        todos[index] = todoTitle;
+        return todos;
+    };
+
     render() {
         return (
             <div className="App">
@@ -38,8 +43,16 @@ class App extends Component {
                             )
                         });
                     }}
-                    
-                    
+                    editTodo={(selectedTodoKey, todoTitle) => {
+                        console.log(`selectedTodoKey: ${selectedTodoKey}, todoTitle: ${todoTitle}`);
+                        this.setState({
+                            todos: this.handleEdit(
+                                selectedTodoKey,
+                                this.state.todos,
+                                todoTitle
+                            )
+                        });
+                    }}
                 />
             </div>
         );

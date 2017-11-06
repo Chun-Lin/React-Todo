@@ -1,11 +1,16 @@
 import React from 'react';
 
-const TodoListItem = ({ todo, index, deleteTodo }) => {
+const TodoListItem = ({ todo, index, deleteTodo, editTodo }) => {
     return (
         <li>
             {todo}
             <div className="list-buttons">
-                <button className="edit">Edit</button>
+                <button
+                    onClick={() => editTodo(index, 'Gary')}
+                    className="edit"
+                >
+                    Edit
+                </button>
                 <button onClick={() => deleteTodo(index)} className="delete">
                     Delete
                 </button>
