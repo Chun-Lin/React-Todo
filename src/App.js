@@ -29,6 +29,17 @@ class App extends Component {
         return todos;
     };
 
+    editTodo(selectedTodoKey, todoTitle) {
+        console.log(`selectedTodoKey: ${selectedTodoKey}, todoTitle: ${todoTitle}`);
+        this.setState({
+            todos: this.handleEdit(
+                selectedTodoKey,
+                this.state.todos,
+                todoTitle
+            )
+        });
+    }
+
     render() {
         return (
             <div className="App">
@@ -43,16 +54,7 @@ class App extends Component {
                             )
                         });
                     }}
-                    editTodo={(selectedTodoKey, todoTitle) => {
-                        console.log(`selectedTodoKey: ${selectedTodoKey}, todoTitle: ${todoTitle}`);
-                        this.setState({
-                            todos: this.handleEdit(
-                                selectedTodoKey,
-                                this.state.todos,
-                                todoTitle
-                            )
-                        });
-                    }}
+                    editTodo={this.editTodo.bind(this)}
                 />
             </div>
         );

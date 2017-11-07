@@ -9,6 +9,10 @@ class AddTodo extends Component {
         };
     }
 
+    handleAddKeyDown = event => {
+        event.keyCode === 13 ? this.onInputChange(this.state.todoTitle) : -1;
+    };
+
     render = () => {
         return (
             <div className="add-todo">
@@ -16,6 +20,7 @@ class AddTodo extends Component {
                     value={this.state.todoTitle}
                     onChange={event =>
                         this.setState({ todoTitle: event.target.value })}
+                    onKeyDown={this.handleAddKeyDown}
                 />
                 <button
                     onClick={() => this.onInputChange(this.state.todoTitle)}
