@@ -10,7 +10,15 @@ class AddTodo extends Component {
     }
 
     handleAddKeyDown = event => {
-        event.keyCode === 13 ? this.onInputChange(this.state.todoTitle) : -1;
+        event.keyCode === 13 ? this.callbackAddTodo(this.state.todoTitle) : -1;
+    };
+
+    handleTodoTitleChange = event => {
+        this.setState({ todoTitle: event.target.value });
+    };
+
+    callbackAddTodo = todoTitle => {
+        this.props.onAddTodoChange(todoTitle);
     };
 
     render = () => {
@@ -18,21 +26,16 @@ class AddTodo extends Component {
             <div className="add-todo">
                 <input
                     value={this.state.todoTitle}
-                    onChange={event =>
-                        this.setState({ todoTitle: event.target.value })}
+                    onChange={this.handleTodoTitleChange}
                     onKeyDown={this.handleAddKeyDown}
                 />
                 <button
-                    onClick={() => this.onInputChange(this.state.todoTitle)}
+                    onClick={() => this.callbackAddTodo(this.state.todoTitle)}
                 >
                     +
                 </button>
             </div>
         );
-    };
-
-    onInputChange = todoTitle => {
-        this.props.onAddTodoChange(todoTitle);
     };
 }
 

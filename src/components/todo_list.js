@@ -10,7 +10,6 @@ class TodoList extends Component {
 
     render() {
         const videoItems = this.props.todos.map((todo, index) => {
-            console.log(`todo: ${todo}, index: ${index}`);
             return (
                 <TodoListItem
                     editTodo={this.props.editTodo}
@@ -21,7 +20,7 @@ class TodoList extends Component {
                 />
             );
         });
-        return <ul>{videoItems}</ul>
+        return <ul>{videoItems}</ul>;
     }
 }
 

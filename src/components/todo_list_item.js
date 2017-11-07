@@ -14,11 +14,10 @@ class TodoListItem extends Component {
     };
 
     handleEditKeyDown = event => {
-        event.keyCode === 13 ? this.toggleMode() : -1 ;
+        event.keyCode === 13 ? this.toggleMode() : -1;
     };
 
     readModeTodoItem = ({ todo, index, deleteTodo, editTodo }) => {
-        console.log(`editMode: ${this.state.editMode}`);
         return (
             <li>
                 {todo}
@@ -52,8 +51,6 @@ class TodoListItem extends Component {
                 </div>
             </div>
         );
-
-        // return <h1>EditMode!!</h1>;
     };
 
     render() {
@@ -64,5 +61,3 @@ class TodoListItem extends Component {
 }
 
 export default TodoListItem;
-
-// TODO: set a state for edit mode and read mode, and another state is index, to see which list-item should be edited
