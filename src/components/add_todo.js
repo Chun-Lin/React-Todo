@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../style/add_todo.css';
 
 class AddTodo extends Component {
     constructor(props) {
@@ -24,12 +25,12 @@ class AddTodo extends Component {
     render = () => {
         return (
             <div className="add-todo">
-                <input
+                <input className="add-input" placeholder="Add Your Todos Here!!"
                     value={this.state.todoTitle}
                     onChange={this.handleTodoTitleChange}
                     onKeyDown={this.handleAddKeyDown}
                 />
-                <button
+                <button className="add-button"
                     onClick={() => this.callbackAddTodo(this.state.todoTitle)}
                 >
                     +

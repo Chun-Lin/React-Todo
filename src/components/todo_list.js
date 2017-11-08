@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TodoListItem from './todo_list_item';
+import '../style/todo_list.css';
 
 class TodoList extends Component {
     constructor(props) {
@@ -11,16 +12,18 @@ class TodoList extends Component {
     render() {
         const videoItems = this.props.todos.map((todo, index) => {
             return (
-                <TodoListItem
-                    editTodo={this.props.editTodo}
-                    deleteTodo={this.props.deleteTodo}
-                    key={index}
-                    index={index}
-                    todo={todo}
-                />
+                <div className="list-items">
+                    <TodoListItem
+                        editTodo={this.props.editTodo}
+                        deleteTodo={this.props.deleteTodo}
+                        key={index}
+                        index={index}
+                        todo={todo}
+                    />
+                </div>
             );
         });
-        return <ul>{videoItems}</ul>;
+        return <ul className="list">{videoItems}</ul>;
     }
 }
 

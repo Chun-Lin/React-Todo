@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './style/App.css';
 import AddTodo from './components/add_todo';
 import TodoList from './components/todo_list';
 
@@ -44,12 +44,14 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <AddTodo onAddTodoChange={this.AddTodo} />
-                <TodoList
-                    todos={this.state.todos}
-                    deleteTodo={this.deleteTodo}
-                    editTodo={this.editTodo}
-                />
+                <div className="Todo">
+                    <AddTodo onAddTodoChange={this.AddTodo} />
+                    <TodoList
+                        todos={this.state.todos}
+                        deleteTodo={this.deleteTodo}
+                        editTodo={this.editTodo}
+                    />
+                </div>
             </div>
         );
     }
