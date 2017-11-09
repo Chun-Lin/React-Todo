@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
-import '../style/todo_list_item.css';
+import '../style/TodoListItem.css';
 
 class TodoListItem extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            editMode: false
+            editMode: false,
+            text: this.props.todos
         };
     }
 
+
     toggleMode = () => {
-        this.setState({ editMode: !this.state.editMode });
+        this.setState(prevStat => ({
+            editMode: !prevStat.editMode
+        }));
     };
 
     handleEditKeyDown = event => {
-        event.keyCode === 13 ? this.toggleMode() : -1;
+        event.keyCode === 13 ? this.toggleMode() : null;
     };
 
-    readModeTodoItem = ({ todo, index, deleteTodo, editTodo }) => {
+    renderReadModeTodoItem = ({ todo, index, deleteTodo, editTodo }) => {
         return (
             <li className="list-item">
                 <div className="list-item-title">{todo}</div>
@@ -41,7 +45,7 @@ class TodoListItem extends Component {
         );
     };
 
-    editModeTodoItem = ({ todo, index, editTodo }) => {
+    renderEditModeTodoItem = ({ todo, index, editTodo }) => {
         return (
             <div className="list-item">
                 <input
@@ -64,8 +68,8 @@ class TodoListItem extends Component {
 
     render() {
         return this.state.editMode
-            ? this.editModeTodoItem(this.props)
-            : this.readModeTodoItem(this.props);
+            ? this.renderEditModeTodoItem(this.props)
+            : this.renderReadModeTodoItem(this.props);
     }
 }
 
