@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './style/App.css';
 import TodoAdd from './components/TodoAdd';
 import TodoList from './components/TodoList';
+import handleServerItemsLoad from './request';
 
 import * as R from 'ramda';
 
@@ -27,7 +28,7 @@ class App extends Component {
 
     deleteTodo = selectedTodoKey => {
         this.setState({
-            todos: this.handleDelete(selectedTodoKey, [...this.state.todos]) // like this.state.todos.slice(), copy an array
+            todos: this.handleDelete(selectedTodoKey, this.state.todos) // like this.state.todos.slice(), copy an array
         });
     };
 
@@ -41,7 +42,11 @@ class App extends Component {
 
     editTodo = (selectedTodoKey, todoTitle) => {
         this.setState({
-            todos: this.handleEdit(selectedTodoKey, [...this.state.todos], todoTitle)
+            todos: this.handleEdit(
+                selectedTodoKey,
+                [...this.state.todos],
+                todoTitle
+            )
         });
     };
 
@@ -49,7 +54,10 @@ class App extends Component {
         return (
             <div className="App">
                 <div className="Todo">
-                    <TodoAdd onAddTodoChange={this.addTodo} todos={this.state.todos} />
+                    <TodoAdd
+                        onAddTodoChange={this.addTodo}
+                        todos={this.state.todos}
+                    />
                     <TodoList
                         todos={this.state.todos}
                         deleteTodo={this.deleteTodo}

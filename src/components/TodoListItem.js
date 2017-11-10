@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import '../style/TodoListItem.css';
 
 class TodoListItem extends Component {
@@ -7,10 +8,9 @@ class TodoListItem extends Component {
 
         this.state = {
             editMode: false,
-            text: this.props.todos
+            text: this.props.todo
         };
     }
-
 
     toggleMode = () => {
         this.setState(prevStat => ({
@@ -18,14 +18,25 @@ class TodoListItem extends Component {
         }));
     };
 
+    updateText = text => {
+        this.setState(prevStat => ({
+            text: text
+        }));
+    };
+
+    handleEditTodo = ({ index, editTodo }) => {
+        editTodo(index, this.state.text);
+        this.toggleMode();
+    };
+
     handleEditKeyDown = event => {
         event.keyCode === 13 ? this.toggleMode() : null;
     };
 
-    renderReadModeTodoItem = ({ todo, index, deleteTodo, editTodo }) => {
+    renderReadModeTodoItem = ({ todo, index, key, deleteTodo, editTodo }) => {
         return (
             <li className="list-item">
-                <div className="list-item-title">{todo}</div>
+                <div className="list-item-title">{this.state.text}</div>
 
                 <div className="list-buttons">
                     <button
@@ -50,13 +61,13 @@ class TodoListItem extends Component {
             <div className="list-item">
                 <input
                     className="edit-input"
-                    value={todo}
-                    onChange={event => editTodo(index, event.target.value)}
+                    value={this.state.text}
+                    onChange={event => this.updateText(event.target.value)}
                     onKeyDown={this.handleEditKeyDown}
                 />
                 <div className="list-buttons">
                     <button
-                        onClick={this.toggleMode}
+                        onClick={() => this.handleEditTodo(this.props)}
                         className="list-buttons complete"
                     >
                         <i class="fa fa-check" aria-hidden="true" />
@@ -72,5 +83,12 @@ class TodoListItem extends Component {
             : this.renderReadModeTodoItem(this.props);
     }
 }
+
+TodoListItem.PropTypes = {
+    todo: PropTypes.string,
+    index: PropTypes.number,
+    deleteTodo: PropTypes.func,
+    editTodo: PropTypes.func
+};
 
 export default TodoListItem;

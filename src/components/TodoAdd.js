@@ -11,33 +11,31 @@ class TodoAdd extends Component {
         };
     }
 
-    // Make a general function for input and onChange
     handleChange = keyword => evt => {
-        this.setState({ [keyword]: evt.target.value })
-    }
+        this.setState({ [keyword]: evt.target.value });
+    };
 
     handleAddKeyDown = event => {
         event.keyCode === 13 ? this.addTodo(this.state.todoTitle) : null;
     };
 
-    // handleTodoTitleChange = event => {
-    //     this.setState({ todoTitle: event.target.value });
-    // };
-
     addTodo = todoTitle => {
         this.props.onAddTodoChange(todoTitle);
-        this.setState({todoTitle: ''})
+        this.setState({ todoTitle: '' });
     };
 
     render = () => {
         return (
             <div className="add-todo">
-                <input className="add-input" placeholder="Add Your Todos Here!!"
+                <input
+                    className="add-input"
+                    placeholder="Add Your Todos Here!!"
                     value={this.state.todoTitle}
                     onChange={this.handleChange('todoTitle')}
                     onKeyDown={this.handleAddKeyDown}
                 />
-                <button className="add-button"
+                <button
+                    className="add-button"
                     onClick={() => this.addTodo(this.state.todoTitle)}
                 >
                     +
@@ -49,7 +47,6 @@ class TodoAdd extends Component {
 
 TodoAdd.PropTypes = {
     onAddTodoChange: PropTypes.func
-
-}
+};
 
 export default TodoAdd;
