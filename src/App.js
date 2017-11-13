@@ -1,21 +1,75 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './style/App.css';
+import TodoAdd from './components/TodoAdd';
+import TodoList from './components/TodoList';
+import { handleServerItemsLoad } from './request';
+import * as R from 'ramda';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            todos: []
+        };
+    }
+
+    addTodo = todoTitle => {
+        this.setState(prevStat => ({
+            todos: prevStat.todos.concat(todoTitle)
+        }));
+    };
+
+    handleDelete = (index, todos) => {
+        console.log(`${typeof todos} index: ${index} todos: ${todos}`);
+        const newTodos = R.remove(index, 1, todos);
+        console.log(`${typeof newTodos} newTodos: ${newTodos}`);
+
+        return newTodos;
+    };
+
+    deleteTodo = selectedTodoKey => {
+        console.log(`selectedTodoKey: ${selectedTodoKey}`);
+        console.log(`state.todos: ${this.state.todos}`);
+        this.setState(prevState => ({
+            todos: this.handleDelete(selectedTodoKey, prevState.todos) // like this.state.todos.slice(), copy an array
+        }));
+    };
+
+    handleEdit = (index, todos, todoTitle) => {
+        // todos[index] = todoTitle;
+        const cloneTodos = [...todos];
+        cloneTodos[index] = todoTitle;
+
+        return cloneTodos;
+    };
+
+    editTodo = (selectedTodoKey, todoTitle) => {
+        this.setState({
+            todos: this.handleEdit(
+                selectedTodoKey,
+                [...this.state.todos],
+                todoTitle
+            )
+        });
+    };
+
+    render() {
+        return (
+            <div className="App">
+                <div className="Todo">
+                    <TodoAdd
+                        onAddTodoChange={this.addTodo}
+                        todos={this.state.todos}
+                    />
+                    <TodoList
+                        todos={this.state.todos}
+                        deleteTodo={this.deleteTodo}
+                        editTodo={this.editTodo}
+                    />
+                </div>
+            </div>
+        );
+    }
 }
 
 export default App;

@@ -1,0 +1,18 @@
+.list{
+    margin: 0px;
+    padding: 0px;
+    height: 50vh;
+    overflow: scroll;
+  }
+  
+  .list-items {
+      display: flex;
+      height: 80px;
+      width: 500px;
+      justify-content: space-around;
+      align-items: center;
+      background: rgba(255, 250, 250, 0.4);
+      box-shadow: 0px 2px 5px rgba(163, 157, 157, 0.5);
+       
+  }
+  
