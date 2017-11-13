@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './style/App.css';
 import TodoAdd from './components/TodoAdd';
 import TodoList from './components/TodoList';
-import { handleServerItemsLoad } from './request';
+import handleServerItemsLoad  from './request';
 import * as R from 'ramda';
 
 class App extends Component {
@@ -50,6 +50,14 @@ class App extends Component {
                 [...this.state.todos],
                 todoTitle
             )
+        });
+    };
+
+    componentDidMount = () => {
+        handleServerItemsLoad().then(todoList => {
+            const todos = todoList.map(todo => todo.todo_title);
+
+            this.setState({ todos: todos });
         });
     };
 

@@ -1,5 +1,5 @@
 const handleServerItemsLoad = () => {
-    fetch('http://localhost:3004/todos', {
+    return fetch('http://localhost:3004/todos', {
         method: 'GET'
     })
         .then(response => {
