@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import './style/App.css';
 import TodoAdd from './components/TodoAdd';
 import TodoList from './components/TodoList';
-import handleServerItemsLoad from './request';
-
+import { handleServerItemsLoad } from './request';
 import * as R from 'ramda';
 
 class App extends Component {
@@ -21,15 +20,19 @@ class App extends Component {
     };
 
     handleDelete = (index, todos) => {
+        console.log(`${typeof todos} index: ${index} todos: ${todos}`);
         const newTodos = R.remove(index, 1, todos);
+        console.log(`${typeof newTodos} newTodos: ${newTodos}`);
 
         return newTodos;
     };
 
     deleteTodo = selectedTodoKey => {
-        this.setState({
-            todos: this.handleDelete(selectedTodoKey, this.state.todos) // like this.state.todos.slice(), copy an array
-        });
+        console.log(`selectedTodoKey: ${selectedTodoKey}`);
+        console.log(`state.todos: ${this.state.todos}`);
+        this.setState(prevState => ({
+            todos: this.handleDelete(selectedTodoKey, prevState.todos) // like this.state.todos.slice(), copy an array
+        }));
     };
 
     handleEdit = (index, todos, todoTitle) => {
