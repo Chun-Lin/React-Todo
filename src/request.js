@@ -1,5 +1,7 @@
+import { API_HOST } from '../src/constants/index';
+
 const handleServerItemsLoad = () => {
-    return fetch('http://localhost:3004/todos', {
+    return fetch(API_HOST, {
         method: 'GET'
     })
         .then(response => {
