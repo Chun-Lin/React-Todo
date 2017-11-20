@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './style/App.css';
 import TodoAdd from './components/TodoAdd';
 import TodoList from './components/TodoList';
-import { handleServerItemsLoad } from './request';
-import * as R from 'ramda';
+import handleServerItemsLoad from './request';
+import { remove } from 'ramda';
 
 class App extends Component {
     constructor(props) {
@@ -21,7 +21,7 @@ class App extends Component {
 
     handleDelete = (index, todos) => {
         console.log(`${typeof todos} index: ${index} todos: ${todos}`);
-        const newTodos = R.remove(index, 1, todos);
+        const newTodos = remove(index, 1, todos);
         console.log(`${typeof newTodos} newTodos: ${newTodos}`);
 
         return newTodos;
@@ -50,6 +50,17 @@ class App extends Component {
                 [...this.state.todos],
                 todoTitle
             )
+        });
+    };
+
+    componentDidMount = () => {
+        handleServerItemsLoad().then(todoList => {
+            if (typeof todoList === 'object') {
+                console.log(todoList);
+                const todos = todoList.map(todo => todo.todo_title);
+
+                this.setState({ todos });
+            }
         });
     };
 
