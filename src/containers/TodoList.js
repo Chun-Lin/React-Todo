@@ -1,10 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import TodoListItem from '../components/TodoListItem'
+import TodoListItem from './TodoListItem'
 import '../style/TodoList.css'
 import { connect } from 'react-redux'
-
-const props = this.props
 
 const TodoList = props => {
   const videoItems = props.todos.map((todo, index) => {

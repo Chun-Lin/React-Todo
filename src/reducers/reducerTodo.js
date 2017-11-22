@@ -11,6 +11,7 @@ export default function(state = [], action) {
       return [...state, action.payload ]
 
     case DEL_TODO:
+      return action.payload
 
     case MOD_TODO:
   }

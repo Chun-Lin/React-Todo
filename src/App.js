@@ -3,7 +3,6 @@ import './style/App.css'
 import TodoAdd from './containers/TodoAdd'
 import TodoList from './containers/TodoList'
 import handleServerItemsLoad from './request'
-import { remove } from 'ramda'
 
 class App extends Component {
   constructor(props) {
@@ -16,22 +15,6 @@ class App extends Component {
   addTodo = todoTitle => {
     this.setState(prevStat => ({
       todos: prevStat.todos.concat(todoTitle),
-    }))
-  }
-
-  handleDelete = (index, todos) => {
-    console.log(`${typeof todos} index: ${index} todos: ${todos}`)
-    const newTodos = remove(index, 1, todos)
-    console.log(`${typeof newTodos} newTodos: ${newTodos}`)
-
-    return newTodos
-  }
-
-  deleteTodo = selectedTodoKey => {
-    console.log(`selectedTodoKey: ${selectedTodoKey}`)
-    console.log(`state.todos: ${this.state.todos}`)
-    this.setState(prevState => ({
-      todos: this.handleDelete(selectedTodoKey, prevState.todos), // like this.state.todos.slice(), copy an array
     }))
   }
 
@@ -65,11 +48,7 @@ class App extends Component {
       <div className="App">
         <div className="Todo">
           <TodoAdd />
-          <TodoList
-            todos={this.state.todos}
-            deleteTodo={this.deleteTodo}
-            editTodo={this.editTodo}
-          />
+          <TodoList todos={this.state.todos} editTodo={this.editTodo} />
         </div>
       </div>
     )

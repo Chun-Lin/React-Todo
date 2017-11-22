@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { handleServerItemAdd } from '../request'
 import '../style/TodoAdd.css'
 import { connect } from 'react-redux'
@@ -23,11 +22,6 @@ class TodoAdd extends Component {
     event.keyCode === 13 ? this.props.addTodo(this.state.todoTitle) : null
   }
 
-  //   addTodo = todoTitle => {
-  //     this.props.onAddTodoChange(todoTitle);
-  //     this.setState({ todoTitle: '' });
-  //   };
-
   render = () => {
     return (
       <div className="add-todo">
@@ -49,12 +43,8 @@ class TodoAdd extends Component {
   }
 }
 
-TodoAdd.PropTypes = {
-  onAddTodoChange: PropTypes.func,
-}
-
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ addTodo: addTodo }, dispatch)
+  return bindActionCreators({ addTodo }, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(TodoAdd)
