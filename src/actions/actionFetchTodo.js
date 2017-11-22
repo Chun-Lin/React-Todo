@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_HOST } from '../src/constants/index';
+import { API_HOST } from '../constants/index';
 
 export const FETCH_TODO = 'FETCH_TODO';
 

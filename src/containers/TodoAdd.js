@@ -1,31 +1,32 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { handleServerItemAdd } from '../request';
-import '../style/TodoAdd.css';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { handleServerItemAdd } from '../request'
+import '../style/TodoAdd.css'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { addTodo } from '../actions/actionAddTodo'
 
 class TodoAdd extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
-      todoTitle: ''
-    };
+      todoTitle: '',
+    }
   }
 
   handleChange = keyword => evt => {
-    this.setState({ [keyword]: evt.target.value });
-  };
+    this.setState({ [keyword]: evt.target.value })
+  }
 
   handleAddKeyDown = event => {
-    event.keyCode === 13 ? this.props.addTodo(this.state.todoTitle) : null;
-  };
+    event.keyCode === 13 ? this.props.addTodo(this.state.todoTitle) : null
+  }
 
-//   addTodo = todoTitle => {
-//     this.props.onAddTodoChange(todoTitle);
-//     this.setState({ todoTitle: '' });
-//   };
+  //   addTodo = todoTitle => {
+  //     this.props.onAddTodoChange(todoTitle);
+  //     this.setState({ todoTitle: '' });
+  //   };
 
   render = () => {
     return (
@@ -44,16 +45,16 @@ class TodoAdd extends Component {
           +
         </button>
       </div>
-    );
-  };
+    )
+  }
 }
 
 TodoAdd.PropTypes = {
-  onAddTodoChange: PropTypes.func
-};
+  onAddTodoChange: PropTypes.func,
+}
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ addTodo }, dispatch);
-};
+  return bindActionCreators({ addTodo: addTodo }, dispatch)
+}
 
-export default connect(null, mapDispatchToProps)(TodoAdd);
+export default connect(null, mapDispatchToProps)(TodoAdd)
