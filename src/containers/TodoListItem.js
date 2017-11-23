@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import '../style/TodoListItem.css'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { delTodo } from '../actions/actionDelTodo'
-import { editTodo } from '../actions/actionEditTodo'
+import { delTodo, editTodo } from '../actions/index'
 
 class TodoListItem extends Component {
   constructor(props) {
@@ -45,16 +44,14 @@ class TodoListItem extends Component {
     this.props.editTodo(index, todos, todo_title)
     this.toggleMode()
   }
-  // handleEditTodo = ({ index, editTodo }) => {
-  //   editTodo(index, this.state.text)
-  //   this.toggleMode()
-  // }
 
-  handleEditKeyDown = event => {
-    event.keyCode === 13 ? this.toggleMode() : null
+  handleEditKeyDown = (index, todos, todo_title, event) => {
+    if (event.keyCode === 13) {
+      this.handleEditTodo(index, todos, todo_title)
+    }
   }
 
-  renderReadModeTodoItem = ({ todo, index, editTodo }) => {
+  renderReadModeTodoItem = ({ index }) => {
     return (
       <li className="list-item">
         <div className="list-item-title">{this.state.text}</div>
@@ -75,14 +72,21 @@ class TodoListItem extends Component {
     )
   }
 
-  renderEditModeTodoItem = ({ todo, index }) => {
+  renderEditModeTodoItem = ({ index }) => {
     return (
       <div className="list-item">
         <input
           className="edit-input"
           value={this.state.text}
           onChange={event => this.updateText(event.target.value)}
-          onKeyDown={this.handleEditKeyDown}
+          onKeyDown={event =>
+            this.handleEditKeyDown(
+              index,
+              this.props.todos,
+              this.state.text,
+              event,
+            )
+          }
         />
         <div className="list-buttons">
           <button

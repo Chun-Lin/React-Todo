@@ -3,7 +3,7 @@ import { handleServerItemAdd } from '../request'
 import '../style/TodoAdd.css'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { addTodo } from '../actions/actionAddTodo'
+import { addTodo } from '../actions/index'
 
 class TodoAdd extends Component {
   constructor(props) {
@@ -41,6 +41,10 @@ class TodoAdd extends Component {
       </div>
     )
   }
+}
+
+const mapStateToProps = ({ todos }) => {
+  return { todos }
 }
 
 const mapDispatchToProps = dispatch => {

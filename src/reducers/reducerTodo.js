@@ -5,9 +5,10 @@ export default function(state = [], action) {
   switch (action.type) {
     case FETCH_TODO:
       // don't mutate origin state, return new array.
-      return [action.payload.todos, ...state]
+      return action.payload.data
     // the same as state.concat([action.payload.data])
     case ADD_TODO:
+      console.log(`state: ${state}`)
       return [...state, action.payload]
 
     case DEL_TODO:

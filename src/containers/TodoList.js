@@ -1,22 +1,33 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import TodoListItem from './TodoListItem'
 import '../style/TodoList.css'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { fetchTodo } from '../actions/index'
 
-const TodoList = props => {
-  const videoItems = props.todos.map((todo, index) => {
+class TodoList extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  componentDidMount = () => {
+    this.props.fetchTodo()
+  }
+
+  renderVideoItems = () => this.props.todos.map((todo, index) => {
     return (
       <div className="list-items" key={index}>
-        <TodoListItem
-          editTodo={props.editTodo}
-          index={index}
-          todo={todo}
-        />
+        <TodoListItem index={index} todo={todo.todo_title}/>
       </div>
     )
   })
-  return <ul className="list">{videoItems}</ul>
+
+  render() {
+    console.log(`todos: ${this.props.todos}`)
+    console.log('render')
+    return <ul className="list">{this.renderVideoItems()}</ul>
+  }
 }
 
 TodoList.PropTypes = {
@@ -27,4 +38,7 @@ const mapStateToProps = ({ todos }) => {
   return { todos }
 }
 
-export default connect(mapStateToProps)(TodoList)
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ fetchTodo }, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList)
