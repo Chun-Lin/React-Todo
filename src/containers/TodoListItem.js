@@ -4,6 +4,7 @@ import '../style/TodoListItem.css'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { delTodo } from '../actions/actionDelTodo'
+import { editTodo } from '../actions/actionEditTodo'
 
 class TodoListItem extends Component {
   constructor(props) {
@@ -40,10 +41,14 @@ class TodoListItem extends Component {
     }))
   }
 
-  handleEditTodo = ({ index, editTodo }) => {
-    editTodo(index, this.state.text)
+  handleEditTodo = (index, todos, todo_title) => {
+    this.props.editTodo(index, todos, todo_title)
     this.toggleMode()
   }
+  // handleEditTodo = ({ index, editTodo }) => {
+  //   editTodo(index, this.state.text)
+  //   this.toggleMode()
+  // }
 
   handleEditKeyDown = event => {
     event.keyCode === 13 ? this.toggleMode() : null
@@ -70,7 +75,7 @@ class TodoListItem extends Component {
     )
   }
 
-  renderEditModeTodoItem = ({ todo, index, editTodo }) => {
+  renderEditModeTodoItem = ({ todo, index }) => {
     return (
       <div className="list-item">
         <input
@@ -81,7 +86,9 @@ class TodoListItem extends Component {
         />
         <div className="list-buttons">
           <button
-            onClick={() => this.handleEditTodo(this.props)}
+            onClick={() =>
+              this.handleEditTodo(index, this.props.todos, this.state.text)
+            }
             className="list-buttons complete"
           >
             <i className="fa fa-check" aria-hidden="true" />
@@ -110,7 +117,7 @@ const mapStateToProps = ({ todos }) => {
 }
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ delTodo }, dispatch)
+  return bindActionCreators({ delTodo, editTodo }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoListItem)

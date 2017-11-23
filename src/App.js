@@ -12,12 +12,6 @@ class App extends Component {
     }
   }
 
-  addTodo = todoTitle => {
-    this.setState(prevStat => ({
-      todos: prevStat.todos.concat(todoTitle),
-    }))
-  }
-
   handleEdit = (index, todos, todoTitle) => {
     // todos[index] = todoTitle;
     const cloneTodos = [...todos]

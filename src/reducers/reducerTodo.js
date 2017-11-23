@@ -1,4 +1,4 @@
-import { FETCH_TODO, ADD_TODO, DEL_TODO, MOD_TODO } from '../actions/index'
+import { FETCH_TODO, ADD_TODO, DEL_TODO, EDIT_TODO } from '../actions/index'
 
 export default function(state = [], action) {
   console.log('Action received', action)
@@ -8,12 +8,13 @@ export default function(state = [], action) {
       return [action.payload.todos, ...state]
     // the same as state.concat([action.payload.data])
     case ADD_TODO:
-      return [...state, action.payload ]
+      return [...state, action.payload]
 
     case DEL_TODO:
       return action.payload
 
-    case MOD_TODO:
+    case EDIT_TODO:
+      return action.payload
   }
   return state
 }

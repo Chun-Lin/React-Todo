@@ -10,7 +10,6 @@ const TodoList = props => {
       <div className="list-items" key={index}>
         <TodoListItem
           editTodo={props.editTodo}
-          deleteTodo={props.deleteTodo}
           index={index}
           todo={todo}
         />
