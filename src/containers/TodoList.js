@@ -7,25 +7,20 @@ import { bindActionCreators } from 'redux'
 import { fetchTodo } from '../actions/index'
 
 class TodoList extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount = () => {
     this.props.fetchTodo()
   }
 
-  renderVideoItems = () => this.props.todos.map((todo, index) => {
-    return (
-      <div className="list-items" key={index}>
-        <TodoListItem index={index} todo={todo.todo_title}/>
-      </div>
-    )
-  })
+  renderVideoItems = () =>
+    this.props.todos.map((todo, index) => {
+      return (
+        <div className="list-items" key={index}>
+          <TodoListItem index={index} todo={todo.todo_title} />
+        </div>
+      )
+    })
 
   render() {
-    console.log(`todos: ${this.props.todos}`)
-    console.log('render')
     return <ul className="list">{this.renderVideoItems()}</ul>
   }
 }

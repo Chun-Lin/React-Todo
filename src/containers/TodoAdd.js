@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { handleServerItemAdd } from '../request'
 import '../style/TodoAdd.css'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -19,7 +18,9 @@ class TodoAdd extends Component {
   }
 
   handleAddKeyDown = event => {
-    event.keyCode === 13 ? this.props.addTodo(this.state.todoTitle) : null
+    if (event.keyCode === 13) {
+      this.props.addTodo(this.state.todoTitle)
+    }
   }
 
   render = () => {
@@ -41,10 +42,6 @@ class TodoAdd extends Component {
       </div>
     )
   }
-}
-
-const mapStateToProps = ({ todos }) => {
-  return { todos }
 }
 
 const mapDispatchToProps = dispatch => {
