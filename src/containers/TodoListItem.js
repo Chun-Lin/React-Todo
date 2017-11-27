@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import '../style/TodoListItem.css'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { delTodo, editTodo } from '../actions/index'
 
 class TodoListItem extends Component {
@@ -27,14 +26,20 @@ class TodoListItem extends Component {
     }))
   }
 
-  handleEditTodo = (index, todos, todo_title) => {
-    this.props.editTodo(index, todos, todo_title)
+  handleEditTodo = (index, todo_title) => {
+    this.props.editTodo(index, todo_title)
     this.toggleMode()
   }
 
-  handleEditKeyDown = (index, todos, todo_title, event) => {
-    if (event.keyCode === 13) {
-      this.handleEditTodo(index, todos, todo_title)
+  handleEditKeyDown = (index, todo_title, event) => {
+    if (event.keyCode === 13 && todo_title !== '') {
+      this.handleEditTodo(index, todo_title)
+    }
+  }
+  // sychornize the component's state to latest store data
+  componentWillReceiveProps(nextProps) {
+    if (this.props.todo !== nextProps.todo) {
+      this.setState({ text: nextProps.todo })
     }
   }
 
@@ -48,7 +53,7 @@ class TodoListItem extends Component {
             <i className="fa fa-pencil" aria-hidden="true" />
           </button>
           <button
-            onClick={() => this.props.delTodo(index, this.props.todos)}
+            onClick={() => this.props.delTodo(index)}
             className=" list-buttons delete"
           >
             <i className="fa fa-trash" aria-hidden="true" />
@@ -60,6 +65,7 @@ class TodoListItem extends Component {
 
   renderEditModeTodoItem = () => {
     const index = this.props.index
+    console.log(`state.text: ${this.state.text}`)
     return (
       <div className="list-item">
         <input
@@ -67,19 +73,12 @@ class TodoListItem extends Component {
           value={this.state.text}
           onChange={event => this.updateText(event.target.value)}
           onKeyDown={event =>
-            this.handleEditKeyDown(
-              index,
-              this.props.todos,
-              this.state.text,
-              event,
-            )
+            this.handleEditKeyDown(index, this.state.text, event)
           }
         />
         <div className="list-buttons">
           <button
-            onClick={() =>
-              this.handleEditTodo(index, this.props.todos, this.state.text)
-            }
+            onClick={() => this.handleEditTodo(index, this.state.text)}
             className="list-buttons complete"
           >
             <i className="fa fa-check" aria-hidden="true" />
@@ -103,12 +102,9 @@ TodoListItem.PropTypes = {
   editTodo: PropTypes.func,
 }
 
-const mapStateToProps = ({ todos }) => {
-  return { todos }
+const mapDispatchToProps = {
+  delTodo,
+  editTodo,
 }
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ delTodo, editTodo }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TodoListItem)
+export default connect(null, mapDispatchToProps)(TodoListItem)

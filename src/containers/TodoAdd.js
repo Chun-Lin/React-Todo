@@ -18,7 +18,7 @@ class TodoAdd extends Component {
   }
 
   handleAddKeyDown = event => {
-    if (event.keyCode === 13) {
+    if (event.keyCode === 13 && this.state.todoTitle !== '') {
       this.props.addTodo(this.state.todoTitle)
     }
   }
@@ -44,8 +44,8 @@ class TodoAdd extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ addTodo }, dispatch)
+const mapDispatchToProps = {
+  addTodo,
 }
 
 export default connect(null, mapDispatchToProps)(TodoAdd)

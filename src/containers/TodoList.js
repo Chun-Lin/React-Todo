@@ -5,6 +5,7 @@ import '../style/TodoList.css'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchTodo } from '../actions/index'
+import store from '../store/store'
 
 class TodoList extends Component {
   componentDidMount = () => {
@@ -12,7 +13,7 @@ class TodoList extends Component {
   }
 
   renderVideoItems = () =>
-    this.props.todos.map((todo, index) => {
+    store.getState().todos.map((todo, index) => {
       return (
         <div className="list-items" key={index}>
           <TodoListItem index={index} todo={todo.todo_title} />
@@ -29,11 +30,12 @@ TodoList.PropTypes = {
   todos: PropTypes.array,
 }
 
-const mapStateToProps = ({ todos }) => {
-  return { todos }
+const mapStateToProps = state => {
+  return { todos: state.todos }
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchTodo }, dispatch)
+const mapDispatchToProps = {
+  fetchTodo,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList)
