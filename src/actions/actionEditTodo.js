@@ -1,10 +1,10 @@
 export const EDIT_TODO = 'EDIT_TODO'
 
-export const editTodo = (selectedTodoKey, todoTitle) => {
+export const editTodo = (id, todoTitle) => {
   return {
     type: EDIT_TODO,
     payload: {
-      selectedTodoKey,
+      id,
       todoTitle,
     },
   }

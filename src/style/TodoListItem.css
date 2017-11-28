@@ -9,6 +9,8 @@
 
 .list-item-title {
     width: 300px;
+    overflow:hidden;
+    text-overflow: ellipsis;
 }
 
 .list-buttons {

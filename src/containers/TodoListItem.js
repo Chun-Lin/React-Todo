@@ -44,7 +44,8 @@ class TodoListItem extends Component {
   }
 
   renderReadModeTodoItem = () => {
-    const index = this.props.index
+    // const index = this.props.index
+    const delID = this.props.id
     return (
       <li className="list-item">
         <div className="list-item-title">{this.props.todo}</div>
@@ -53,7 +54,7 @@ class TodoListItem extends Component {
             <i className="fa fa-pencil" aria-hidden="true" />
           </button>
           <button
-            onClick={() => this.props.delTodo(index)}
+            onClick={() => this.props.delTodo(delID)}
             className=" list-buttons delete"
           >
             <i className="fa fa-trash" aria-hidden="true" />
@@ -64,8 +65,7 @@ class TodoListItem extends Component {
   }
 
   renderEditModeTodoItem = () => {
-    const index = this.props.index
-    console.log(`state.text: ${this.state.text}`)
+    const editID = this.props.id
     return (
       <div className="list-item">
         <input
@@ -73,12 +73,12 @@ class TodoListItem extends Component {
           value={this.state.text}
           onChange={event => this.updateText(event.target.value)}
           onKeyDown={event =>
-            this.handleEditKeyDown(index, this.state.text, event)
+            this.handleEditKeyDown(editID, this.state.text, event)
           }
         />
         <div className="list-buttons">
           <button
-            onClick={() => this.handleEditTodo(index, this.state.text)}
+            onClick={() => this.handleEditTodo(editID, this.state.text)}
             className="list-buttons complete"
           >
             <i className="fa fa-check" aria-hidden="true" />

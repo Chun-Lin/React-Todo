@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import '../style/TodoAdd.css'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { addTodo } from '../actions/index'
+import store from '../store/store'
 
 class TodoAdd extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
+      id: '0',
       todoTitle: '',
     }
   }
@@ -18,8 +19,30 @@ class TodoAdd extends Component {
   }
 
   handleAddKeyDown = event => {
-    if (event.keyCode === 13 && this.state.todoTitle !== '') {
-      this.props.addTodo(this.state.todoTitle)
+    const todosLength = store.getState().todos.length
+    if (
+      event.keyCode === 13 &&
+      this.state.todoTitle !== '' &&
+      todosLength > 0
+    ) {
+      this.props.addTodo(
+        store.getState().todos[todosLength - 1].id,
+        this.state.todoTitle,
+      )
+    } else if (event.keyCode === 13 && this.state.todoTitle !== '') {
+      this.props.addTodo(this.state.id, this.state.todoTitle)
+    }
+  }
+
+  handleAddButton = event => {
+    const todosLength = store.getState().todos.length
+    if (this.state.todoTitle !== '' && todosLength > 0) {
+      this.props.addTodo(
+        store.getState().todos[todosLength - 1].id,
+        this.state.todoTitle,
+      )
+    } else if (this.state.todoTitle !== '') {
+      this.props.addTodo(this.state.id, this.state.todoTitle)
     }
   }
 
@@ -33,10 +56,7 @@ class TodoAdd extends Component {
           onChange={this.handleChange('todoTitle')}
           onKeyDown={this.handleAddKeyDown}
         />
-        <button
-          className="add-button"
-          onClick={() => this.props.addTodo(this.state.todoTitle)}
-        >
+        <button className="add-button" onClick={this.handleAddButton}>
           +
         </button>
       </div>
